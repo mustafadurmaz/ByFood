@@ -35,6 +35,8 @@ func main() {
 
 	bookHandler := handlers.NewBookHandler(dbStorage)
 
+	urlHandler := handlers.NewURLHandler()
+
 	router := gin.Default()
 
 	api := router.Group("/books")
@@ -45,6 +47,8 @@ func main() {
 		api.PUT("/:id", bookHandler.UpdateBook)
 		api.DELETE("/:id", bookHandler.DeleteBook)
 	}
+
+	router.POST("/process-url", urlHandler.ProcessURL)
 
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:3000"},
