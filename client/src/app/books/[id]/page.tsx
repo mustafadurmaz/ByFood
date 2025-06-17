@@ -59,7 +59,7 @@ export default function BookDetailPage() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
       {book && (
         <Card>
           <CardContent>

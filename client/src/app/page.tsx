@@ -76,7 +76,7 @@ export default function HomePage() {
           <CircularProgress />
         </Box>
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ mt: 6}}>
           <Table>
             <TableHead>
               <TableRow>

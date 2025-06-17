@@ -38,7 +38,7 @@ export const BookForm = ({
   });
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{defaultValues ? "Edit Book" : "Add Book"}</DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent>
