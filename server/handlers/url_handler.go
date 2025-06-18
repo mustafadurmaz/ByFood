@@ -17,6 +17,15 @@ func NewURLHandler() *URLHandler {
 	return &URLHandler{}
 }
 
+// @Summary Process a URL
+// @Description Apply canonical and/or redirection rules to a given URL
+// @Tags url
+// @Accept json
+// @Produce json
+// @Param request body models.ProcessURLRequest true "URL and operation to process"
+// @Success 200 {object} models.ProcessURLResponse
+// @Failure 400 {object} models.ErrorResponse
+// @Router /process-url [post]
 func (h *URLHandler) ProcessURL(c *gin.Context) {
 	var req models.ProcessURLRequest
 

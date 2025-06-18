@@ -9,10 +9,14 @@ import (
 	"byfood-task/handlers"
 	"byfood-task/storage"
 
+	docs "byfood-task/docs"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
@@ -38,6 +42,10 @@ func main() {
 	urlHandler := handlers.NewURLHandler()
 
 	router := gin.Default()
+
+	// Swagger endpoint
+    docs.SwaggerInfo.BasePath = "/"
+    router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	api := router.Group("/books")
 	{

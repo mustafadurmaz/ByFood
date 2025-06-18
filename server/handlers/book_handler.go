@@ -19,6 +19,16 @@ func NewBookHandler(s storage.Storage) *BookHandler {
 	return &BookHandler{storage: s}
 }
 
+// @Summary Create a new book
+// @Description Add a new book to the database
+// @Tags books
+// @Accept  json
+// @Produce  json
+// @Param   book  body   models.Book  true  "Book to add"
+// @Success 201 {object} models.Book
+// @Failure 400 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /books [post]
 func (h *BookHandler) CreateBook(c *gin.Context) {
 	var book models.Book
 
@@ -38,7 +48,13 @@ func (h *BookHandler) CreateBook(c *gin.Context) {
 	c.JSON(http.StatusCreated, book)
 }
 
-// GET /books
+// @Summary Get all books
+// @Description Retrieve all books from the database
+// @Tags books
+// @Produce json
+// @Success 200 {array} models.Book
+// @Failure 500 {object} models.ErrorResponse
+// @Router /books [get]
 func (h *BookHandler) GetBooks(c *gin.Context) {
 	books, err := h.storage.GetBooks()
 	if err != nil {
@@ -51,7 +67,15 @@ func (h *BookHandler) GetBooks(c *gin.Context) {
 	c.JSON(http.StatusOK, books)
 }
 
-// GET /books/:id
+// @Summary Get a book by ID
+// @Description Retrieve a specific book using its ID
+// @Tags books
+// @Produce json
+// @Param id path int true "Book ID"
+// @Success 200 {object} models.Book
+// @Failure 400 {object} models.ErrorResponse
+// @Failure 404 {object} models.ErrorResponse
+// @Router /books/{id} [get]
 func (h *BookHandler) GetBookByID(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -71,7 +95,17 @@ func (h *BookHandler) GetBookByID(c *gin.Context) {
 	c.JSON(http.StatusOK, book)
 }
 
-// PUT /books/:id
+// @Summary Update a book
+// @Description Update a book's information by ID
+// @Tags books
+// @Accept  json
+// @Produce json
+// @Param id path int true "Book ID"
+// @Param book body models.Book true "Updated book"
+// @Success 200 {object} models.MessageResponse
+// @Failure 400 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /books/{id} [put]
 func (h *BookHandler) UpdateBook(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -97,7 +131,15 @@ func (h *BookHandler) UpdateBook(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Book updated successfully"})
 }
 
-// DELETE /books/:id
+// @Summary Delete a book
+// @Description Delete a book by ID
+// @Tags books
+// @Produce json
+// @Param id path int true "Book ID"
+// @Success 200 {object} models.MessageResponse
+// @Failure 400 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /books/{id} [delete]
 func (h *BookHandler) DeleteBook(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
